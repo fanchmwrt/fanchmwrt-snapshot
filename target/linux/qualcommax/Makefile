@@ -12,7 +12,7 @@ KERNEL_PATCHVER:=6.12
 
 include $(INCLUDE_DIR)/target.mk
 DEFAULT_PACKAGES += \
-	kmod-usb3 kmod-usb-dwc3 kmod-usb-dwc3-qcom \
+	kmod-usb3 kmod-usb-dwc3 kmod-usb-dwc3-qcom kmod-fs-ext4 kmod-fs-f2fs f2fsck  mkf2fs automount autocore \
 	kmod-leds-gpio kmod-gpio-button-hotplug \
 	kmod-qca-nss-dp kmod-ath11k-ahb \
 	wpad-basic-mbedtls uboot-envtools \
