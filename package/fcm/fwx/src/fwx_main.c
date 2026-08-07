@@ -2580,7 +2580,7 @@ static void fwx_timer_func(unsigned long ptr)
 	mod_timer(&fwx_timer, jiffies + FWX_TIMER_INTERVAL * HZ);
 }
 
-void init_fwx_timer(void)
+static void init_fwx_timer(void)
 {
 #if LINUX_VERSION_CODE >= KERNEL_VERSION(4, 15, 0)
 	timer_setup(&fwx_timer, fwx_timer_func, 0);
@@ -2591,9 +2591,13 @@ void init_fwx_timer(void)
 	AF_INFO("init fwx timer...ok");
 }
 
-void fini_fwx_timer(void)
+static void fini_fwx_timer(void)
 {
+#if LINUX_VERSION_CODE >= KERNEL_VERSION(6, 15, 0)
+	timer_shutdown_sync(&fwx_timer);
+#else
 	del_timer_sync(&fwx_timer);
+#endif
 	AF_INFO("del fwx timer...ok");
 }
 
@@ -2694,7 +2698,7 @@ static void fwx_netlink_msg_rcv(struct sk_buff *skb)
 	}
 }
 
-int netlink_fwx_init(void)
+static int netlink_fwx_init(void)
 {
 	struct netlink_kernel_cfg nl_cfg = {0};
 	nl_cfg.input = fwx_netlink_msg_rcv;
