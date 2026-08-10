@@ -217,6 +217,8 @@ function wiphy_detect() {
 			for (let freq in band.freqs) {
 				if (freq.disabled)
 					continue;
+				if (freq.radar)
+					continue;
 				let chan = freq_to_channel(freq.freq);
 				if (!chan)
 					continue;
