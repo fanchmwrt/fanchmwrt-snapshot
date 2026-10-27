@@ -17,6 +17,27 @@ proto_send_update "$PPP_IPPARAM"
 }
 
 if [ -n "$AUTOIPV6" ]; then
+	# Leave DHCPv6 to an explicitly configured interface on this PPP link.
+	# A second client would register the same odhcp6c ubus object and may
+	# enter a setup/teardown loop (openwrt/netifd#72).
+	. /lib/functions.sh
+	ppp6_find_dhcpv6() {
+		local section="$1"
+		local proto device
+
+		config_get proto "$section" proto
+		[ "$proto" = "dhcpv6" ] || return 0
+		config_get device "$section" device
+		[ -n "$device" ] || config_get device "$section" ifname
+		[ "$device" = "@$PPP_IPPARAM" ] && ppp6_has_dhcpv6=1
+		return 0
+	}
+
+	ppp6_has_dhcpv6=0
+	config_load network
+	config_foreach ppp6_find_dhcpv6 interface
+	[ "$ppp6_has_dhcpv6" = 1 ] && exit 0
+
 	ZONE=$(fw3 -q network $PPP_IPPARAM 2>/dev/null)
 
 	json_init
