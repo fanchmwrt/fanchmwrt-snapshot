@@ -106,10 +106,11 @@ TARGET_DEVICES += glinet_gl-axt1800
 
 define Device/jdcloud_re-cs-02
 	$(call Device/FitImage)
+	$(call Device/EmmcImage)
 	DEVICE_VENDOR := JDCloud
 	DEVICE_MODEL := RE-CS-02
 	SOC := ipq6010
-	BLOCKSIZE := 64k
+	BLOCKSIZE := 128k
 	KERNEL_SIZE := 6144k
 	DEVICE_DTS_CONFIG := config@cp03-c3
 	DEVICE_PACKAGES := ath11k-firmware-qcn9074 ipq-wifi-jdcloud_re-cs-02 kmod-ath11k-pci
@@ -119,10 +120,11 @@ TARGET_DEVICES += jdcloud_re-cs-02
 
 define Device/jdcloud_re-cs-07
 	$(call Device/FitImage)
+	$(call Device/EmmcImage)
 	DEVICE_VENDOR := JDCloud
 	DEVICE_MODEL := RE-CS-07
 	SOC := ipq6010
-	BLOCKSIZE := 64k
+	BLOCKSIZE := 128k
 	KERNEL_SIZE := 6144k
 	DEVICE_DTS_CONFIG := config@cp03-c4
 	DEVICE_PACKAGES := -ath11k-firmware-ipq6018 -kmod-ath11k-ahb -wpad-basic-mbedtls
@@ -132,10 +134,11 @@ TARGET_DEVICES += jdcloud_re-cs-07
 
 define Device/jdcloud_re-ss-01
 	$(call Device/FitImage)
+	$(call Device/EmmcImage)
 	DEVICE_VENDOR := JDCloud
 	DEVICE_MODEL := RE-SS-01
 	SOC := ipq6000
-	BLOCKSIZE := 64k
+	BLOCKSIZE := 128k
 	KERNEL_SIZE := 6144k
 	DEVICE_DTS_CONFIG := config@cp03-c2
 	DEVICE_PACKAGES := ipq-wifi-jdcloud_re-ss-01
